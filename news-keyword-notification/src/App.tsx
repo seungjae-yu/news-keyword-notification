@@ -1,7 +1,12 @@
 import React from "react";
+import KeywordContainer from "./container/KeywordContainer";
 
 const App = () => {
-  return <div>hello world</div>;
+  return (
+    <div>
+      <KeywordContainer />
+    </div>
+  );
 };
 
 export default App;
