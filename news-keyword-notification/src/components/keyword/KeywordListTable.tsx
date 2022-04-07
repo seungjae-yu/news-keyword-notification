@@ -11,7 +11,7 @@ interface Props {
 const KeywordListTable = ({ keywordList, onRemove }: Props) => {
     const columns: GridColDef[] = [
         { field: "id", headerName: "ID", width: 100 },
-        { field: "keyword", headerName: "키워드", width: 400 },
+        { field: "keyword", headerName: "키워드", width: 300 },
     ];
 
     return (

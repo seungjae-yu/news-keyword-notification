@@ -3,6 +3,7 @@ import KeywordContainer from "./container/keyword/KeywordContainer";
 import { createGlobalStyle } from "styled-components";
 import GlobalTemplate from "./styles/GlobalTemplate";
 import SlideDrawerContainer from "./container/slide/SlideDrawerContainer";
+import MenuBarContainer from "./container/menubar/MenuBarContainer";
 
 const GlobalStype = createGlobalStyle`
     body{
@@ -15,7 +16,9 @@ const App = () => {
         <div style={{ display: "flex" }}>
             <GlobalStype />
             <div style={{ width: "97%" }}>
-                <GlobalTemplate>메인페이지</GlobalTemplate>
+                <GlobalTemplate>
+                    <MenuBarContainer />
+                </GlobalTemplate>
             </div>
             <div>
                 <SlideDrawerContainer />

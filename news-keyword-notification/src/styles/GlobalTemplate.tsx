@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const GlobalTemplateBlock = styled.div`
-    width: 100%;
+    /* width: 100%;
     height: 850px;
     //position: relative;
     background: #ffffff;
@@ -11,7 +11,7 @@ const GlobalTemplateBlock = styled.div`
     margin-top: 32px;
     margin-bottom: 32px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; */
 `;
 
 const GlobalTemplate = ({ children }: any) => {
