@@ -5,6 +5,8 @@ import Tab from "@material-ui/core/Tab";
 import { TabPanel, getPanelInfo } from "./TabPanel";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules";
+import { Button } from "@material-ui/core";
+import { NaverApi } from "../../utils/naverApi/NaverApis";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -48,7 +50,13 @@ const NavigatorComponent = () => {
                 ))}
             </Tabs>
             <TabPanel value={value} index={0}>
-                전체보기
+                <Button
+                    onClick={async () =>
+                        await NaverApi.getNewsInfo({ query: "손흥민" })
+                    }
+                >
+                    검색
+                </Button>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 Item Two
