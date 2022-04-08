@@ -10,8 +10,9 @@ interface Props {
 
 const KeywordListTable = ({ keywordList, onRemove }: Props) => {
     const columns: GridColDef[] = [
-        { field: "id", headerName: "ID", width: 100 },
-        { field: "keyword", headerName: "키워드", width: 300 },
+        { field: "id", headerName: "ID", width: 50 },
+        { field: "keyword", headerName: "키워드", width: 200 },
+        { field: "keywordGroup", headerName: "키워드그룹", width: 250 },
     ];
 
     return (
@@ -22,7 +23,7 @@ const KeywordListTable = ({ keywordList, onRemove }: Props) => {
             useDeleteItem={true}
             onRemove={onRemove}
             style={{
-                height: 500,
+                height: 400,
                 width: 800,
             }}
         />

@@ -10,7 +10,7 @@ import {
     RemoveDataAction,
 } from "../../modules/keyword";
 
-const KeywordContainer = () => {
+const KeywordSettingContainer = () => {
     const dispatch = useDispatch();
     const keywordItems = useSelector(
         (state: RootState) => state.keywordReducer.keywordItems
@@ -25,7 +25,7 @@ const KeywordContainer = () => {
     };
 
     return (
-        <div style={{ margin: "40px" }}>
+        <div>
             <KeywordComponent onItemAdd={onItemAdd} />
             <KeywordListComponent
                 keywordList={keywordItems ?? []}
@@ -35,4 +35,4 @@ const KeywordContainer = () => {
     );
 };
 
-export default KeywordContainer;
+export default KeywordSettingContainer;

@@ -1,9 +1,10 @@
 import React from "react";
-import KeywordContainer from "./container/keyword/KeywordContainer";
+import KeywordSettingContainer from "./container/keyword/KeywordContainer";
 import { createGlobalStyle } from "styled-components";
 import GlobalTemplate from "./styles/GlobalTemplate";
 import SlideDrawerContainer from "./container/slide/SlideDrawerContainer";
 import MenuBarContainer from "./container/menubar/MenuBarContainer";
+import NavigatorContainer from "./container/navigator/NavigatorContainer";
 
 const GlobalStype = createGlobalStyle`
     body{
@@ -15,14 +16,15 @@ const App = () => {
     return (
         <div style={{ display: "flex" }}>
             <GlobalStype />
-            <div style={{ width: "97%" }}>
+            <div style={{ width: "100%" }}>
                 <GlobalTemplate>
                     <MenuBarContainer />
+                    <NavigatorContainer />
                 </GlobalTemplate>
             </div>
-            <div>
+            {/* <div>
                 <SlideDrawerContainer />
-            </div>
+            </div> */}
         </div>
     );
 };
