@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { TabPanel, getPanelInfo } from "./TabPanel";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import { NaverApi } from "../../utils/naverApi/NaverApis";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -17,22 +17,25 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     tabs: {
         borderRight: `1px solid ${theme.palette.divider}`,
+        overflow: "visible",
     },
 }));
 
 const NavigatorComponent = () => {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const [keywordIndex, setKeywordIndex] = useState(0);
     const { keywordItems } = useSelector(
         (state: RootState) => state.keywordReducer
     );
+
+    const { newsItems } = useSelector((state: RootState) => state.newsReducer);
 
     const getKeywordGroups = () => {
         return [...new Set(keywordItems.map((m) => m.keywordGroup))];
     };
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue);
+        setKeywordIndex(newValue);
     };
 
     return (
@@ -40,7 +43,7 @@ const NavigatorComponent = () => {
             <Tabs
                 orientation="vertical"
                 variant="scrollable"
-                value={value}
+                value={keywordIndex}
                 onChange={handleChange}
                 className={classes.tabs}
             >
@@ -49,22 +52,14 @@ const NavigatorComponent = () => {
                     <Tab label={m} {...getPanelInfo(index)} />
                 ))}
             </Tabs>
-            <TabPanel value={value} index={0}>
-                <Button
-                    onClick={async () =>
-                        await NaverApi.getNewsInfo({ query: "손흥민" })
-                    }
-                >
-                    검색
-                </Button>
+
+            <TabPanel value={keywordIndex} index={0}>
+                <Typography>{JSON.stringify(newsItems)}</Typography>
             </TabPanel>
-            <TabPanel value={value} index={1}>
-                Item Two
-            </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel value={keywordIndex} index={2}>
                 Item Three
             </TabPanel>
-            <TabPanel value={value} index={3}>
+            <TabPanel value={keywordIndex} index={3}>
                 Item Four
             </TabPanel>
         </div>

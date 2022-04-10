@@ -14,16 +14,29 @@ import SearchIcon from "@material-ui/icons/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { faGear } from "@fortawesome/free-solid-svg-icons";
 import ToolTipComponent from "../../common/presentational/ToolTipComponent";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { NaverApi } from "../../utils/naverApi/NaverApis";
+import { RootState } from "../../modules";
+import { useSelector, useDispatch } from "react-redux";
+import { LoadDataAction } from "../../modules/news";
+import { NewsData } from "../../@types/news-data-type";
 
 interface Props {
     onClickSetKeyword: () => void;
-    onClickSetSetting: () => void;
+    onClickSetAlertSetting: () => void;
+    onClickSetSearchSetting: () => void;
 }
 
-const AppBarComponent = ({ onClickSetKeyword, onClickSetSetting }: Props) => {
+const AppBarComponent = ({
+    onClickSetKeyword,
+    onClickSetAlertSetting,
+    onClickSetSearchSetting,
+}: Props) => {
     const classes = useStyles();
+
+    const { newsItems } = useSelector((state: RootState) => state.newsReducer);
+    const dispatch = useDispatch();
 
     return (
         <div className={classes.root}>
@@ -37,15 +50,24 @@ const AppBarComponent = ({ onClickSetKeyword, onClickSetSetting }: Props) => {
                             <SearchIcon />
                         </div>
                         <InputBase
-                            placeholder="Search…"
+                            placeholder="Search..."
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
                             inputProps={{ "aria-label": "search" }}
-                            onKeyUp={(e) => {
+                            onKeyUp={async (e) => {
                                 if (e.key === "Enter") {
-                                    alert(e.currentTarget.value);
+                                    const newsInfo = await NaverApi.getNewsInfo(
+                                        {
+                                            query: e.currentTarget.value,
+                                        }
+                                    );
+                                    console.log(JSON.stringify(newsInfo.data));
+                                    const newsJson: NewsData = JSON.parse(
+                                        JSON.stringify(newsInfo.data)
+                                    );
+                                    dispatch(LoadDataAction([newsJson]));
                                 }
                             }}
                         />
@@ -61,10 +83,19 @@ const AppBarComponent = ({ onClickSetKeyword, onClickSetSetting }: Props) => {
 
                     <ToolTipComponent title="알림 설정" placement="bottom">
                         <IconButton
-                            onClick={onClickSetSetting}
+                            onClick={onClickSetAlertSetting}
                             style={{ paddingLeft: "20px" }}
                         >
                             <FontAwesomeIcon icon={faBell} />
+                        </IconButton>
+                    </ToolTipComponent>
+
+                    <ToolTipComponent title="검색 설정" placement="bottom">
+                        <IconButton
+                            onClick={onClickSetSearchSetting}
+                            style={{ paddingLeft: "20px" }}
+                        >
+                            <FontAwesomeIcon icon={faGear} />
                         </IconButton>
                     </ToolTipComponent>
                 </Toolbar>

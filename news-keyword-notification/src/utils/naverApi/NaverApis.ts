@@ -16,7 +16,7 @@ export namespace NaverApi {
                     NaverClientInfo["X-Naver-Client-Secret"],
             },
         });
-        console.log(JSON.stringify(result));
+        //console.log(JSON.stringify(result));
         return result;
     }
 }

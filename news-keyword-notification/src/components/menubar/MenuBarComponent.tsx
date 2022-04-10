@@ -10,24 +10,31 @@ import DialogComponent from "../../common/dialog/DialogComponent";
 import KeywordSettingContainer from "../../container/keyword/KeywordContainer";
 import AppBarComponent from "./AppBarComponent";
 import NotificationSettingContainer from "../../container/setting/NotificationSettingContainer";
+import SearchSettingContainer from "../../container/setting/SearchSettingContainer";
 
 const MenuBarComponent = () => {
     const [keywordOpen, setKeywordOpen] = useState<boolean>(false);
-    const [settingOpen, setSettingOpen] = useState<boolean>(false);
+    const [alertSettingOpen, setAlertSettingOpen] = useState<boolean>(false);
+    const [searchSettingOpen, setSearchSettingOpen] = useState<boolean>(false);
 
     const onClickSetKeyword = () => {
         setKeywordOpen(true);
     };
 
-    const onClickSetSetting = () => {
-        setSettingOpen(true);
+    const onClickSetAlertSetting = () => {
+        setAlertSettingOpen(true);
+    };
+
+    const onClickSetSearchSetting = () => {
+        setSearchSettingOpen(true);
     };
 
     return (
         <div style={{ height: "8vh" }}>
             <AppBarComponent
                 onClickSetKeyword={onClickSetKeyword}
-                onClickSetSetting={onClickSetSetting}
+                onClickSetAlertSetting={onClickSetAlertSetting}
+                onClickSetSearchSetting={onClickSetSearchSetting}
             />
             <DialogComponent
                 title={"Keyword Setting"}
@@ -38,10 +45,17 @@ const MenuBarComponent = () => {
             />
             <DialogComponent
                 title={"알림 설정"}
-                open={settingOpen}
+                open={alertSettingOpen}
                 children={<NotificationSettingContainer />}
-                onClickConfirm={() => setSettingOpen(false)}
-                onClose={() => setSettingOpen(false)}
+                onClickConfirm={() => setAlertSettingOpen(false)}
+                onClose={() => setAlertSettingOpen(false)}
+            />
+            <DialogComponent
+                title={"검색설정"}
+                open={searchSettingOpen}
+                children={<SearchSettingContainer />}
+                onClickConfirm={() => setSearchSettingOpen(false)}
+                onClose={() => setSearchSettingOpen(false)}
             />
         </div>
     );
