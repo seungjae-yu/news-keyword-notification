@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/news-keyword-notification/static/js/main.5dfc45e7.js",
+    "main.js": "/news-keyword-notification/static/js/main.a4ece610.js",
     "index.html": "/news-keyword-notification/index.html",
-    "main.5dfc45e7.js.map": "/news-keyword-notification/static/js/main.5dfc45e7.js.map"
+    "main.a4ece610.js.map": "/news-keyword-notification/static/js/main.a4ece610.js.map"
   },
   "entrypoints": [
-    "static/js/main.5dfc45e7.js"
+    "static/js/main.a4ece610.js"
   ]
 }
