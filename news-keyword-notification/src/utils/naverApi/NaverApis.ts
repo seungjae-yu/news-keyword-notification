@@ -7,8 +7,9 @@ export namespace NaverApi {
         const query = `api/v1/search/news.json`;
         const result = await axios.get(query, {
             params: {
-                display: 10,
+                display: param.display || 10,
                 query: param.query,
+                sort: param.sort || "date"
             },
             headers: {
                 "X-Naver-Client-Id": NaverClientInfo["X-Naver-Client-Id"],
@@ -16,7 +17,6 @@ export namespace NaverApi {
                     NaverClientInfo["X-Naver-Client-Secret"],
             },
         });
-        //console.log(JSON.stringify(result));
         return result;
     }
 }

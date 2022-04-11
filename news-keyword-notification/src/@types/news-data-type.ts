@@ -46,10 +46,10 @@ export interface NewsData {
     total: number;
     start: number;
     display: number;
-    items: Item[];
+    items: ArticleData[];
 }
 
-export interface Item {
+export interface ArticleData {
     title: string;
     originallink: string;
     link: string;
@@ -57,4 +57,4 @@ export interface Item {
     pubDate: string;
 }
 
-export interface Request {}
+export interface Request { }

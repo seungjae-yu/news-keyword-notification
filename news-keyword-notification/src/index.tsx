@@ -1,11 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import createSagaMiddleware, { SagaMiddleware } from "redux-saga";
 import App from "./App";
 import rootReducer from "./modules";
+import rootSaga from "./modules/sagas/newsApiSaga";
 
-const store = createStore(rootReducer);
+const sagaMiddleware: SagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <React.StrictMode>

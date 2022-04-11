@@ -1,3 +1,4 @@
+import searchParamReducer, { searchParamState } from './searchParam';
 import { combineReducers } from "redux";
 import keywordReducer, { keywordState } from "./keyword";
 import newsReducer, { newsState } from "./news";
@@ -7,12 +8,14 @@ export interface StoreState {
     //reducer : reducerState
     keywordReducer: keywordState;
     newsReducer: newsState;
+    searchParamReducer: searchParamState;
 }
 
 const rootReducer = combineReducers<StoreState>({
     //interface에 추가한 reducer 설정
     keywordReducer,
     newsReducer,
+    searchParamReducer
 });
 
 export default rootReducer;

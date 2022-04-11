@@ -45,6 +45,7 @@ const MenuBarComponent = () => {
             />
             <DialogComponent
                 title={"알림 설정"}
+                contentAlign={"left"}
                 open={alertSettingOpen}
                 children={<NotificationSettingContainer />}
                 onClickConfirm={() => setAlertSettingOpen(false)}
@@ -52,6 +53,7 @@ const MenuBarComponent = () => {
             />
             <DialogComponent
                 title={"검색설정"}
+                contentAlign={"left"}
                 open={searchSettingOpen}
                 children={<SearchSettingContainer />}
                 onClickConfirm={() => setSearchSettingOpen(false)}

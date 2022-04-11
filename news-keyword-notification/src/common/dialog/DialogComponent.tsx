@@ -4,6 +4,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
+import { Divider } from "@material-ui/core";
 
 interface Props {
     open: boolean;
@@ -11,6 +12,7 @@ interface Props {
     onClose: () => void;
     title: string;
     children: React.ReactNode;
+    contentAlign?: "center" | "left" | "right";
 }
 
 const DialogComponent = ({
@@ -19,6 +21,7 @@ const DialogComponent = ({
     onClose,
     title,
     children,
+    contentAlign,
 }: Props) => {
     return (
         <div>
@@ -40,11 +43,16 @@ const DialogComponent = ({
                 >
                     {title}
                 </DialogTitle>
+                <Divider />
                 <DialogContent
                     style={{
+                        margin: "10px",
                         display: "flex",
-                        justifyContent: "center",
                         minHeight: "500px",
+                        justifyContent:
+                            contentAlign !== undefined
+                                ? contentAlign
+                                : "center",
                     }}
                 >
                     {children}

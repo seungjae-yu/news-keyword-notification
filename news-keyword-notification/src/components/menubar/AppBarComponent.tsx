@@ -16,11 +16,9 @@ import { faTag } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import ToolTipComponent from "../../common/presentational/ToolTipComponent";
-import { NaverApi } from "../../utils/naverApi/NaverApis";
 import { RootState } from "../../modules";
 import { useSelector, useDispatch } from "react-redux";
-import { LoadDataAction } from "../../modules/news";
-import { NewsData } from "../../@types/news-data-type";
+import { APIDataRequestAction } from "../../modules/news";
 
 interface Props {
     onClickSetKeyword: () => void;
@@ -35,8 +33,38 @@ const AppBarComponent = ({
 }: Props) => {
     const classes = useStyles();
 
-    const { newsItems } = useSelector((state: RootState) => state.newsReducer);
+    const { searchParam } = useSelector(
+        (state: RootState) => state.searchParamReducer
+    );
+    const { keywordItems } = useSelector(
+        (state: RootState) => state.keywordReducer
+    );
     const dispatch = useDispatch();
+
+    const onClickSearchEnter = (
+        e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        if (e.currentTarget.value === "") {
+            keywordItems.forEach((keywords) => {
+                dispatch(
+                    APIDataRequestAction(
+                        {
+                            ...searchParam,
+                            query: keywords.keyword,
+                        },
+                        keywords
+                    )
+                );
+            });
+        } else {
+            dispatch(
+                APIDataRequestAction({
+                    ...searchParam,
+                    query: e.currentTarget.value,
+                })
+            );
+        }
+    };
 
     return (
         <div className={classes.root}>
@@ -58,16 +86,7 @@ const AppBarComponent = ({
                             inputProps={{ "aria-label": "search" }}
                             onKeyUp={async (e) => {
                                 if (e.key === "Enter") {
-                                    const newsInfo = await NaverApi.getNewsInfo(
-                                        {
-                                            query: e.currentTarget.value,
-                                        }
-                                    );
-                                    console.log(JSON.stringify(newsInfo.data));
-                                    const newsJson: NewsData = JSON.parse(
-                                        JSON.stringify(newsInfo.data)
-                                    );
-                                    dispatch(LoadDataAction([newsJson]));
+                                    onClickSearchEnter(e);
                                 }
                             }}
                         />
