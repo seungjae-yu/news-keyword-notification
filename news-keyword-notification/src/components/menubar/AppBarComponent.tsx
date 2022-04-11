@@ -18,7 +18,7 @@ import { faGear } from "@fortawesome/free-solid-svg-icons";
 import ToolTipComponent from "../../common/presentational/ToolTipComponent";
 import { RootState } from "../../modules";
 import { useSelector, useDispatch } from "react-redux";
-import { APIDataRequestAction } from "../../modules/news";
+import { APIDataRequestAction, RemoveDataAction } from "../../modules/news";
 
 interface Props {
     onClickSetKeyword: () => void;
@@ -44,6 +44,7 @@ const AppBarComponent = ({
     const onClickSearchEnter = (
         e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
+        dispatch(RemoveDataAction());
         if (e.currentTarget.value === "") {
             keywordItems.forEach((keywords) => {
                 dispatch(

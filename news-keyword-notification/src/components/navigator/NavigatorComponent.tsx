@@ -8,6 +8,7 @@ import { RootState } from "../../modules";
 import { Button, Typography } from "@material-ui/core";
 import { NaverApi } from "../../utils/naverApi/NaverApis";
 import Article from "../article/Article";
+import BoardContainer from "../../container/board/BoardContainer";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -54,17 +55,10 @@ const NavigatorComponent = () => {
                 ))}
             </Tabs>
 
-            <TabPanel value={keywordIndex} index={0}>
-                {newsItems.map((newsItem) => (
-                    <Article article={newsItem.items} />
-                ))}
-            </TabPanel>
-            <TabPanel value={keywordIndex} index={1}>
-                Item Two
-            </TabPanel>
-            <TabPanel value={keywordIndex} index={2}>
-                Item Three
-            </TabPanel>
+            <BoardContainer
+                keywordIndex={keywordIndex}
+                keywordGroups={getKeywordGroups()}
+            />
         </div>
     );
 };

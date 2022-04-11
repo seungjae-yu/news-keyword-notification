@@ -1,6 +1,8 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Typography, Link } from "@material-ui/core";
 import React from "react";
 import { ArticleData } from "../../@types/news-data-type";
+import DOMPurify from "dompurify";
+import { StringApis } from "../../utils/dataUtils/stringApi";
 
 interface Props {
     article: ArticleData[];
@@ -10,17 +12,27 @@ const Article = ({ article }: Props) => {
     return (
         <div>
             {article.map((article) => (
-                <Card>
+                <Card variant="outlined">
                     <CardContent>
                         <Typography variant="h6">
-                            {"title : " + article.title}
+                            <Link
+                                href={article.link}
+                                color="primary"
+                                target="_blank"
+                            >
+                                {StringApis.RemoveHtmlTags(article.title)}
+                            </Link>
                         </Typography>
                     </CardContent>
                     <CardContent>
                         <Typography variant="body2">
                             <div>{"date : " + article.pubDate}</div>
-                            <div>{"description : " + article.description}</div>
-                            <div>{"link : " + article.link}</div>
+                            <div>
+                                {"description : " +
+                                    StringApis.RemoveHtmlTags(
+                                        article.description
+                                    )}
+                            </div>
                         </Typography>
                     </CardContent>
                 </Card>
