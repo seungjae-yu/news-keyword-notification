@@ -7,7 +7,8 @@
     "@types/material-ui": "^0.21.12",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "express": "^4.17.3"
   },
   "engines": {
     "node": "16.x"
