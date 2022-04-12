@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/icons/Search";
-import { FilterList } from "@material-ui/icons";
 import DialogComponent from "../../common/dialog/DialogComponent";
 import KeywordSettingContainer from "../../container/keyword/KeywordContainer";
 import AppBarComponent from "./AppBarComponent";
@@ -13,11 +6,20 @@ import NotificationSettingContainer from "../../container/setting/NotificationSe
 import SearchSettingContainer from "../../container/setting/SearchSettingContainer";
 import { localStorageApi } from "../../utils/dataUtils/localStorageApi";
 import { saveStorageType } from "../../@types/data-type";
+import { useSelector } from "react-redux";
+import { RootState } from "../../modules";
 
 const MenuBarComponent = () => {
     const [keywordOpen, setKeywordOpen] = useState<boolean>(false);
     const [alertSettingOpen, setAlertSettingOpen] = useState<boolean>(false);
     const [searchSettingOpen, setSearchSettingOpen] = useState<boolean>(false);
+
+    const { keywordItems } = useSelector(
+        (state: RootState) => state.keywordReducer
+    );
+    const { searchParam } = useSelector(
+        (state: RootState) => state.searchParamReducer
+    );
 
     const onClickSetKeyword = () => {
         setKeywordOpen(true);
@@ -35,8 +37,19 @@ const MenuBarComponent = () => {
         const result = window.confirm("정보를 저장하시겠습니까?");
         if (!result) return result;
 
-        localStorageApi.save(key, "");
+        localStorageApi.save(key, getValueItem(key));
         return result;
+    };
+
+    const getValueItem = (key: saveStorageType) => {
+        switch (key) {
+            case "keyword":
+                return keywordItems;
+            case "notification":
+                return "";
+            case "searchParams":
+                return searchParam;
+        }
     };
 
     return (
@@ -76,7 +89,8 @@ const MenuBarComponent = () => {
                 open={searchSettingOpen}
                 children={<SearchSettingContainer />}
                 onClickConfirm={() =>
-                    onClickConfirm("search") && setSearchSettingOpen(false)
+                    onClickConfirm("searchParams") &&
+                    setSearchSettingOpen(false)
                 }
                 onClose={() => setSearchSettingOpen(false)}
             />

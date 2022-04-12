@@ -6,15 +6,26 @@ import KeywordListComponent from "../../components/keyword/KeywordListComponent"
 import { RootState } from "../../modules";
 import {
     AddDataAction,
-    keywordState,
     RemoveDataAction,
+    keywordItem,
+    LoadDataAction,
 } from "../../modules/keyword";
+import { useEffect } from "react";
+import { localStorageApi } from "../../utils/dataUtils/localStorageApi";
 
 const KeywordSettingContainer = () => {
     const dispatch = useDispatch();
     const keywordItems = useSelector(
         (state: RootState) => state.keywordReducer.keywordItems
     );
+
+    useEffect(() => {
+        const keywordData = localStorageApi.get("keyword");
+        if (keywordData) {
+            const jsonKeywordData: keywordItem[] = JSON.parse(keywordData);
+            dispatch(LoadDataAction(jsonKeywordData));
+        }
+    }, []);
 
     const onItemAdd = (data: keywordItemType) => {
         dispatch(AddDataAction(data));

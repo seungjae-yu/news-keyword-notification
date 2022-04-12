@@ -16,7 +16,13 @@ const Board = ({ keywordIndex, keywordGroups }: Props) => {
     );
 
     return (
-        <div style={{ height: "90vh", overflow: "scroll" }}>
+        <div
+            style={
+                newsItems.length > 0
+                    ? { height: "90vh", overflow: "scroll" }
+                    : undefined
+            }
+        >
             <TabPanel value={keywordIndex} index={0}>
                 {newsItems.map((newsItem) => (
                     <Article

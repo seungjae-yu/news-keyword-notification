@@ -3,16 +3,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NaverSearchParam } from "../../@types/naverApi-info";
 import { RootState } from "../../modules";
+import { searchParamItem } from "../../modules/searchParam";
 
 interface Props {
     onChangeSetting: (data: NaverSearchParam) => void;
+    searchParam: searchParamItem;
 }
 
-const SearchSetting = ({ onChangeSetting }: Props) => {
-    const { searchParam } = useSelector(
-        (state: RootState) => state.searchParamReducer
-    );
-
+const SearchSetting = ({ onChangeSetting, searchParam }: Props) => {
     const onChangeSelect = (event: any) => {
         onChangeSetting({
             ...searchParam,

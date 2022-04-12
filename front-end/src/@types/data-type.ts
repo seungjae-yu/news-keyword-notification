@@ -1,1 +1,1 @@
-export type saveStorageType = "keyword" | "notification" | "search";
+export type saveStorageType = "keyword" | "notification" | "searchParams";
