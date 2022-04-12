@@ -16,20 +16,22 @@ const Board = ({ keywordIndex, keywordGroups }: Props) => {
     );
 
     return (
-        <div>
+        <div style={{ height: "90vh", overflow: "scroll" }}>
             <TabPanel value={keywordIndex} index={0}>
                 {newsItems.map((newsItem) => (
-                    <Article article={newsItem.items} />
+                    <Article
+                        article={newsItem.items}
+                        key={"article-" + newsItem.id}
+                    />
                 ))}
             </TabPanel>
-            {/* <TabPanel value={keywordIndex} index={1}>
-                Item Two
-            </TabPanel>
-            <TabPanel value={keywordIndex} index={2}>
-                Item Three
-            </TabPanel> */}
+
             {keywordItems.map((keyword, idx) => (
-                <TabPanel value={keywordIndex} index={idx + 1}>
+                <TabPanel
+                    value={keywordIndex}
+                    index={idx + 1}
+                    key={keyword.keyword}
+                >
                     {newsItems
                         .filter(
                             (newsItem) =>

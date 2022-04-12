@@ -21,7 +21,6 @@ export namespace NaverApi {
                     NaverClientInfo["X-Naver-Client-Secret"],
             }
         });
-        console.log(result);
         return result;
     }
 }

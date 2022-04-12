@@ -6,7 +6,7 @@ import { TabPanel, getPanelInfo } from "./TabPanel";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules";
 import { Button, Typography } from "@material-ui/core";
-import { NaverApi } from "../../utils/naverApi/NaverApis";
+import { NaverApi } from "../../utils/newsApi/NaverApis";
 import Article from "../article/Article";
 import BoardContainer from "../../container/board/BoardContainer";
 

@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { SearchParam } from '../@types/naverApi-info';
+import { NaverSearchParam } from '../@types/naverApi-info';
 //import your data type
 
 // 1. Action Type
@@ -8,14 +8,14 @@ const CHANGE_DATA = 'searchParam/CHANGE_DATA';
 
 // 2. Action Creator
 // change type any to your data Type
-export const LoadDataAction = (data: SearchParam) => ({ type: LOAD_DATA, payload: data });
-export const ChangeDataAction = (data: SearchParam) => ({ type: CHANGE_DATA, payload: data });
+export const LoadDataAction = (data: NaverSearchParam) => ({ type: LOAD_DATA, payload: data });
+export const ChangeDataAction = (data: NaverSearchParam) => ({ type: CHANGE_DATA, payload: data });
 
 // 3. return types
 export type searchParamActions = ReturnType<typeof LoadDataAction> | ReturnType<typeof ChangeDataAction>;
 
 // 4.
-interface searchParamItem extends SearchParam { //extends data type
+interface searchParamItem extends NaverSearchParam { //extends data type
     //id: number;
 }
 // 5. State type

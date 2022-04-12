@@ -1,11 +1,11 @@
 import { Grid, MenuItem, Select, TextField } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
-import { SearchParam } from "../../@types/naverApi-info";
+import { NaverSearchParam } from "../../@types/naverApi-info";
 import { RootState } from "../../modules";
 
 interface Props {
-    onChangeSetting: (data: SearchParam) => void;
+    onChangeSetting: (data: NaverSearchParam) => void;
 }
 
 const SearchSetting = ({ onChangeSetting }: Props) => {
@@ -38,7 +38,7 @@ const SearchSetting = ({ onChangeSetting }: Props) => {
                 <Grid item>
                     <TextField
                         id="standard-number"
-                        value={searchParam.display || 10}
+                        value={searchParam.display}
                         label="검색 건수 (10 ~ 100)"
                         type="number"
                         onChange={onChangeTextField}
@@ -48,7 +48,7 @@ const SearchSetting = ({ onChangeSetting }: Props) => {
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={searchParam.sort || "date"}
+                        value={searchParam.sort || "sim"}
                         onChange={onChangeSelect}
                     >
                         <MenuItem value={"date"}>날짜순</MenuItem>

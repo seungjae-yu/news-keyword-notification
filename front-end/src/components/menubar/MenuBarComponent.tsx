@@ -11,6 +11,8 @@ import KeywordSettingContainer from "../../container/keyword/KeywordContainer";
 import AppBarComponent from "./AppBarComponent";
 import NotificationSettingContainer from "../../container/setting/NotificationSettingContainer";
 import SearchSettingContainer from "../../container/setting/SearchSettingContainer";
+import { localStorageApi } from "../../utils/dataUtils/localStorageApi";
+import { saveStorageType } from "../../@types/data-type";
 
 const MenuBarComponent = () => {
     const [keywordOpen, setKeywordOpen] = useState<boolean>(false);
@@ -29,6 +31,14 @@ const MenuBarComponent = () => {
         setSearchSettingOpen(true);
     };
 
+    const onClickConfirm = (key: saveStorageType) => {
+        const result = window.confirm("정보를 저장하시겠습니까?");
+        if (!result) return result;
+
+        localStorageApi.save(key, "");
+        return result;
+    };
+
     return (
         <div style={{ height: "8vh" }}>
             <AppBarComponent
@@ -39,24 +49,35 @@ const MenuBarComponent = () => {
             <DialogComponent
                 title={"Keyword Setting"}
                 open={keywordOpen}
+                contentHeight="500px"
                 children={<KeywordSettingContainer />}
-                onClickConfirm={() => setKeywordOpen(false)}
+                onClickConfirm={() =>
+                    onClickConfirm("keyword") && setKeywordOpen(false)
+                }
                 onClose={() => setKeywordOpen(false)}
             />
             <DialogComponent
                 title={"알림 설정"}
                 contentAlign={"left"}
+                size={"xs"}
+                //contentHeight="200px"
                 open={alertSettingOpen}
                 children={<NotificationSettingContainer />}
-                onClickConfirm={() => setAlertSettingOpen(false)}
+                onClickConfirm={() =>
+                    onClickConfirm("notification") && setAlertSettingOpen(false)
+                }
                 onClose={() => setAlertSettingOpen(false)}
             />
             <DialogComponent
                 title={"검색설정"}
                 contentAlign={"left"}
+                size={"xs"}
+                //contentHeight="200px"
                 open={searchSettingOpen}
                 children={<SearchSettingContainer />}
-                onClickConfirm={() => setSearchSettingOpen(false)}
+                onClickConfirm={() =>
+                    onClickConfirm("search") && setSearchSettingOpen(false)
+                }
                 onClose={() => setSearchSettingOpen(false)}
             />
         </div>

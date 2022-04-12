@@ -5,6 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import { Divider } from "@material-ui/core";
+import ToolTipComponent from "../presentational/ToolTipComponent";
 
 interface Props {
     open: boolean;
@@ -13,6 +14,8 @@ interface Props {
     title: string;
     children: React.ReactNode;
     contentAlign?: "center" | "left" | "right";
+    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    contentHeight?: string;
 }
 
 const DialogComponent = ({
@@ -22,6 +25,8 @@ const DialogComponent = ({
     title,
     children,
     contentAlign,
+    size,
+    contentHeight,
 }: Props) => {
     return (
         <div>
@@ -31,7 +36,7 @@ const DialogComponent = ({
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
                 fullWidth
-                maxWidth={"md"}
+                maxWidth={size || "md"}
             >
                 <DialogTitle
                     id="dialog-title"
@@ -48,7 +53,7 @@ const DialogComponent = ({
                     style={{
                         margin: "10px",
                         display: "flex",
-                        minHeight: "500px",
+                        minHeight: (contentHeight = contentHeight),
                         justifyContent:
                             contentAlign !== undefined
                                 ? contentAlign
@@ -59,14 +64,19 @@ const DialogComponent = ({
                 </DialogContent>
                 {/* <DialogContentText></DialogContentText> */}
                 <DialogActions>
-                    <Button
-                        onClick={onClickConfirm}
-                        variant={"contained"}
-                        style={{ background: "#FE6B8B", color: "white" }}
-                        autoFocus
+                    <ToolTipComponent
+                        title="재접속시 정보가 유지됩니다."
+                        placement="bottom"
                     >
-                        완료
-                    </Button>
+                        <Button
+                            onClick={onClickConfirm}
+                            variant={"contained"}
+                            style={{ background: "#FE6B8B", color: "white" }}
+                            autoFocus
+                        >
+                            저장
+                        </Button>
+                    </ToolTipComponent>
                 </DialogActions>
             </Dialog>
         </div>

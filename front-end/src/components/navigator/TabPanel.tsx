@@ -24,7 +24,9 @@ export const TabPanel = (props: TabPanelProps) => {
             aria-labelledby={`vertical-tab-${index}`}
             {...other}
         >
-            {value === index && <Typography>{children}</Typography>}
+            {value === index && (
+                <Typography component={"span"}>{children}</Typography>
+            )}
         </div>
     );
 };
