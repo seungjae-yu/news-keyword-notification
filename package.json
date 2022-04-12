@@ -11,8 +11,9 @@
   },
   "engines": {
     "node": "16.x"
-  },
+  },  
   "scripts": {
-    "heroku" : "git subtree push --prefix back-end heroku master"
+    "heroku" : "git subtree push --prefix back-end heroku master",
+    "start" : "node back-end/dist/src/app.js"
   }
 }
