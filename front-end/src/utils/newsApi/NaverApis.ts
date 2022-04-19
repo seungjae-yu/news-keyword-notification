@@ -5,6 +5,7 @@ import axios from "axios";
 export namespace NaverApi {
     export async function getNewsInfo(param: NaverApiParams) {
         const query = `https://news-keyword-notification.herokuapp.com/article`;
+        //const query = `http://localhost:5001/article`;
 
         const result = await axios({
             url: query,

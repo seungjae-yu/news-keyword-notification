@@ -19,6 +19,8 @@ import ToolTipComponent from "../../common/presentational/ToolTipComponent";
 import { RootState } from "../../modules";
 import { useSelector, useDispatch } from "react-redux";
 import { APIDataRequestAction, RemoveDataAction } from "../../modules/news";
+import { useCallback } from "react";
+import _ from "lodash";
 
 interface Props {
     onClickSetKeyword: () => void;
@@ -67,6 +69,29 @@ const AppBarComponent = ({
         }
     };
 
+    const searchQuery = useCallback(
+        _.debounce((query: string) => {
+            if (query) {
+                dispatch(RemoveDataAction());
+                dispatch(
+                    APIDataRequestAction({
+                        ...searchParam,
+                        query: query,
+                    })
+                );
+            }
+        }, 300),
+        [searchParam, dispatch]
+    );
+
+    const onChangeSearchText = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            console.log(event.currentTarget.value);
+            searchQuery(event.currentTarget.value);
+        },
+        []
+    );
+
     return (
         <div className={classes.root}>
             <AppBar className={classes.appBar}>
@@ -90,6 +115,7 @@ const AppBarComponent = ({
                                     onClickSearchEnter(e);
                                 }
                             }}
+                            onChange={onChangeSearchText}
                         />
                         <ToolTipComponent
                             title="키워드 설정"
