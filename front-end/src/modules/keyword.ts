@@ -76,7 +76,7 @@ const keywordReducer = (
         }
 
         default: {
-            return produce(state, (draft) => {});
+            return produce(state, (_draft) => { });
         }
     }
 };

@@ -42,7 +42,7 @@ const loadingReducer = (state: loadingState = initialState, action: loadingActio
             });
         }
         default: {
-            return produce(state, draft => { });
+            return produce(state, _draft => { });
         }
     }
 }

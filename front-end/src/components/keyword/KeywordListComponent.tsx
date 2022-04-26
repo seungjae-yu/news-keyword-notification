@@ -15,4 +15,4 @@ const KeywordListComponent = ({ keywordList, onRemove }: Props) => {
     );
 };
 
-export default KeywordListComponent;
+export default React.memo(KeywordListComponent);

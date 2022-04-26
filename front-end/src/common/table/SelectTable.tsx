@@ -1,6 +1,6 @@
 import { IconButton } from "@material-ui/core";
-import { DataGrid, GridColDef, GridColumns } from "@material-ui/data-grid";
-import React, { useState } from "react";
+import { DataGrid, GridColumns } from "@material-ui/data-grid";
+import React, { useCallback, useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { RightAlignDiv } from "../../styles/StyledComponents";
 
@@ -13,6 +13,11 @@ interface Props<T> {
     onRemove?(selectedItems: any[]): void;
 }
 
+const defaultSizeStyle = {
+    height: 400,
+    width: "100%",
+};
+
 const SelectTable = <T extends object>({
     data,
     columns,
@@ -23,16 +28,18 @@ const SelectTable = <T extends object>({
 }: Props<T>) => {
     const [selectionModel, setSelectionModel] = useState<any[]>([]);
 
+    const onClickButton = useCallback(() => {
+        if (onRemove) {
+            onRemove(selectionModel);
+        }
+        setSelectionModel([]);
+    }, [onRemove, selectionModel, setSelectionModel]);
+
     return (
-        <div style={style ?? { height: 400, width: "100%" }}>
+        <div style={style ?? defaultSizeStyle}>
             {useDeleteItem && onRemove && (
                 <RightAlignDiv>
-                    <IconButton
-                        onClick={() => {
-                            onRemove(selectionModel);
-                            setSelectionModel([]);
-                        }}
-                    >
+                    <IconButton onClick={onClickButton}>
                         <DeleteIcon />
                     </IconButton>
                 </RightAlignDiv>
@@ -51,4 +58,4 @@ const SelectTable = <T extends object>({
     );
 };
 
-export default SelectTable;
+export default React.memo(SelectTable);

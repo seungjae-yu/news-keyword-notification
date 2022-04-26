@@ -62,7 +62,7 @@ const newsReducer = (
 ): newsState => {
     switch (action.type) {
         case API_DATA_REQUEST: {
-            return produce(state, (draft) => { });
+            return produce(state, (_draft) => { });
         }
 
         case API_DATA_SUCCESS: {
@@ -73,7 +73,7 @@ const newsReducer = (
         }
 
         case API_DATA_FAIL: {
-            return produce(state, (draft) => { });
+            return produce(state, (_draft) => { });
         }
 
         case REMOVE_DATA: {
@@ -83,7 +83,7 @@ const newsReducer = (
         }
 
         default: {
-            return produce(state, (draft) => { });
+            return produce(state, (_draft) => { });
         }
     }
 };

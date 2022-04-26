@@ -1,8 +1,5 @@
 import { Grid, MenuItem, Select, TextField } from "@material-ui/core";
-import React from "react";
-import { useSelector } from "react-redux";
 import { NaverSearchParam } from "../../@types/naverApi-info";
-import { RootState } from "../../modules";
 import { searchParamItem } from "../../modules/searchParam";
 
 interface Props {

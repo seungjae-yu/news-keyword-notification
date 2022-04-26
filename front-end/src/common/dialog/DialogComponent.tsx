@@ -18,6 +18,11 @@ interface Props {
     contentHeight?: string;
 }
 
+const dialogTitleStyle = {
+    background: "white",
+    color: "black",
+};
+
 const DialogComponent = ({
     open,
     onClickConfirm,
@@ -38,17 +43,11 @@ const DialogComponent = ({
                 fullWidth
                 maxWidth={size || "md"}
             >
-                <DialogTitle
-                    id="dialog-title"
-                    style={{
-                        background: "white",
-                        // "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-                        color: "black",
-                    }}
-                >
+                <DialogTitle id="dialog-title" style={dialogTitleStyle}>
                     {title}
                 </DialogTitle>
                 <Divider />
+
                 <DialogContent
                     style={{
                         margin: "10px",
@@ -62,6 +61,7 @@ const DialogComponent = ({
                 >
                     {children}
                 </DialogContent>
+
                 {/* <DialogContentText></DialogContentText> */}
                 <DialogActions>
                     <ToolTipComponent
@@ -83,4 +83,4 @@ const DialogComponent = ({
     );
 };
 
-export default DialogComponent;
+export default React.memo(DialogComponent);

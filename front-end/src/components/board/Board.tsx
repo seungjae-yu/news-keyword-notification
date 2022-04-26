@@ -1,8 +1,8 @@
-import React from "react";
-import { TabPanel } from "../navigator/TabPanel";
+import { TabPanel } from "../main/TabPanel";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules";
 import Article from "../article/Article";
+import React from "react";
 
 interface Props {
     keywordIndex: number;
@@ -16,7 +16,7 @@ const Board = ({ keywordIndex, keywordGroups }: Props) => {
     );
 
     return (
-        <div
+        <aside
             style={
                 newsItems.length > 0
                     ? { height: "90vh", overflow: "scroll" }
@@ -49,8 +49,8 @@ const Board = ({ keywordIndex, keywordGroups }: Props) => {
                         ))}
                 </TabPanel>
             ))}
-        </div>
+        </aside>
     );
 };
 
-export default Board;
+export default React.memo(Board);

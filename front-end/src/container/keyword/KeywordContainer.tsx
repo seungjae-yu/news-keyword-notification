@@ -12,6 +12,7 @@ import {
 } from "../../modules/keyword";
 import { useEffect } from "react";
 import { localStorageApi } from "../../utils/dataUtils/localStorageApi";
+import { useCallback } from "react";
 
 const KeywordSettingContainer = () => {
     const dispatch = useDispatch();
@@ -25,15 +26,21 @@ const KeywordSettingContainer = () => {
             const jsonKeywordData: keywordItem[] = JSON.parse(keywordData);
             dispatch(LoadDataAction(jsonKeywordData));
         }
-    }, []);
+    }, [dispatch]);
 
-    const onItemAdd = (data: keywordItemType) => {
-        dispatch(AddDataAction(data));
-    };
+    const onItemAdd = useCallback(
+        (data: keywordItemType) => {
+            dispatch(AddDataAction(data));
+        },
+        [dispatch]
+    );
 
-    const onItemRemove = (selectedItems: any[]) => {
-        dispatch(RemoveDataAction(selectedItems));
-    };
+    const onItemRemove = useCallback(
+        (selectedItems: any[]) => {
+            dispatch(RemoveDataAction(selectedItems));
+        },
+        [dispatch]
+    );
 
     return (
         <div>
@@ -46,4 +53,4 @@ const KeywordSettingContainer = () => {
     );
 };
 
-export default KeywordSettingContainer;
+export default React.memo(KeywordSettingContainer);

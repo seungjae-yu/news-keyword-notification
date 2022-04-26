@@ -27,4 +27,4 @@ const ToolTipComponent = ({ title, children, placement }: Props) => {
     );
 };
 
-export default ToolTipComponent;
+export default React.memo(ToolTipComponent);

@@ -1,4 +1,3 @@
-import { LoadingStartAction } from './../loading';
 import { NaverNewsDataObject } from "./../../@types/news-data-type";
 import { all, call, put, takeEvery } from "redux-saga/effects";
 import { NaverApi } from "../../utils/newsApi/NaverApis";

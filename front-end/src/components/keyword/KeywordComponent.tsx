@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../modules";
 import { Grid } from "@material-ui/core";
 import _ from "lodash";
+import { useCallback } from "react";
 
 interface Props {
     onItemAdd(item: keywordItemType): void;
@@ -29,30 +30,33 @@ const KeywordComponent = ({ onItemAdd }: Props) => {
         (state: RootState) => state.keywordReducer
     );
 
-    const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const id = e.currentTarget.id;
-        switch (id) {
-            case "keyword": {
-                setKeyWord(e.currentTarget.value);
-                break;
+    const onChangeText = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const id = e.currentTarget.id;
+            switch (id) {
+                case "keyword": {
+                    setKeyWord(e.currentTarget.value);
+                    break;
+                }
             }
-        }
-    };
+        },
+        []
+    );
 
-    const onClickKeywordAdd = () => {
+    const onClickKeywordAdd = useCallback(() => {
         onItemAdd({
             keyword: keyword,
             keywordGroup: keywordGroup?.title || "NONE",
         });
-    };
+    }, [onItemAdd, keyword, keywordGroup]);
 
-    const getKeyWordGroupOptions = () => {
+    const getKeyWordGroupOptions = useCallback(() => {
         const keywordOptions = keywordItems.map((m) => ({
             title: m.keywordGroup,
             inputValue: m.keywordGroup,
         }));
         return _.uniqBy(keywordOptions, "title");
-    };
+    }, [keywordItems]);
 
     return (
         <Grid container spacing={3}>
@@ -78,7 +82,7 @@ const KeywordComponent = ({ onItemAdd }: Props) => {
                     renderInput={(params) => (
                         <TextField {...params} label={"키워드 그룹 선택"} />
                     )}
-                    onChange={(event, newValue) => {
+                    onChange={(_event, newValue) => {
                         if (typeof newValue === "string") {
                             setKeywordGroup({
                                 title: newValue,

@@ -41,6 +41,16 @@
         "predeploy": "yarn run build",
         "deploy": "gh-pages -d build"
     },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ],
+        "rules" : {
+            "react/jsx-uses-react": "off",
+            "react/react-in-jsx-scope": "off"
+        }
+    },
     "browserslist": {
         "production": [
             ">0.2%",

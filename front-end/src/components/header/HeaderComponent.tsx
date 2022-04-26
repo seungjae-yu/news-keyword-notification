@@ -21,6 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { APIDataRequestAction, RemoveDataAction } from "../../modules/news";
 import { useCallback } from "react";
 import _ from "lodash";
+import { useMemo } from "react";
 
 interface Props {
     onClickSetKeyword: () => void;
@@ -28,7 +29,11 @@ interface Props {
     onClickSetSearchSetting: () => void;
 }
 
-const AppBarComponent = ({
+const IconPadding = {
+    paddingLeft: "20px",
+};
+
+const HeaderComponent = ({
     onClickSetKeyword,
     onClickSetAlertSetting,
     onClickSetSearchSetting,
@@ -43,53 +48,54 @@ const AppBarComponent = ({
     );
     const dispatch = useDispatch();
 
-    const onClickSearchEnter = (
-        e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        dispatch(RemoveDataAction());
-        if (e.currentTarget.value === "") {
-            keywordItems.forEach((keywords) => {
-                dispatch(
-                    APIDataRequestAction(
-                        {
-                            ...searchParam,
-                            query: keywords.keyword,
-                        },
-                        keywords
-                    )
-                );
-            });
-        } else {
-            dispatch(
-                APIDataRequestAction({
-                    ...searchParam,
-                    query: e.currentTarget.value,
-                })
-            );
-        }
-    };
-
-    const searchQuery = useCallback(
-        _.debounce((query: string) => {
-            if (query) {
-                dispatch(RemoveDataAction());
+    const onClickSearchEnter = useCallback(
+        (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            dispatch(RemoveDataAction());
+            if (e.currentTarget.value === "") {
+                keywordItems.forEach((keywords) => {
+                    dispatch(
+                        APIDataRequestAction(
+                            {
+                                ...searchParam,
+                                query: keywords.keyword,
+                            },
+                            keywords
+                        )
+                    );
+                });
+            } else {
                 dispatch(
                     APIDataRequestAction({
                         ...searchParam,
-                        query: query,
+                        query: e.currentTarget.value,
                     })
                 );
             }
-        }, 300),
+        },
+        [dispatch, keywordItems, searchParam]
+    );
+
+    const searchQuery = useMemo(
+        () =>
+            _.debounce((query: string) => {
+                if (query) {
+                    dispatch(RemoveDataAction());
+                    dispatch(
+                        APIDataRequestAction({
+                            ...searchParam,
+                            query: query,
+                        })
+                    );
+                }
+            }, 300),
         [searchParam, dispatch]
     );
 
     const onChangeSearchText = useCallback(
         (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            console.log(event.currentTarget.value);
             searchQuery(event.currentTarget.value);
         },
-        []
+        [searchQuery]
     );
 
     return (
@@ -130,7 +136,7 @@ const AppBarComponent = ({
                     <ToolTipComponent title="알림 설정" placement="bottom">
                         <IconButton
                             onClick={onClickSetAlertSetting}
-                            style={{ paddingLeft: "20px" }}
+                            style={IconPadding}
                         >
                             <FontAwesomeIcon icon={faBell} />
                         </IconButton>
@@ -139,7 +145,7 @@ const AppBarComponent = ({
                     <ToolTipComponent title="검색 설정" placement="bottom">
                         <IconButton
                             onClick={onClickSetSearchSetting}
-                            style={{ paddingLeft: "20px" }}
+                            style={IconPadding}
                         >
                             <FontAwesomeIcon icon={faGear} />
                         </IconButton>
@@ -208,4 +214,4 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default AppBarComponent;
+export default React.memo(HeaderComponent);

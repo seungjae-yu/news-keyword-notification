@@ -32,4 +32,4 @@ const BoardContainer = ({ keywordIndex, keywordGroups }: Props) => {
     );
 };
 
-export default BoardContainer;
+export default React.memo(BoardContainer);

@@ -30,4 +30,4 @@ const KeywordListTable = ({ keywordList, onRemove }: Props) => {
     );
 };
 
-export default KeywordListTable;
+export default React.memo(KeywordListTable);

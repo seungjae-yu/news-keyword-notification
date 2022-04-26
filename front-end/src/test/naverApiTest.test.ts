@@ -2,7 +2,7 @@ import { NewsData } from "../@types/news-data-type";
 
 // Function
 const artitleParsing = (data: string) => {
-    const jsonData: NewsData = JSON.parse(articleTestData);
+    const jsonData: NewsData = JSON.parse(data);
     return jsonData;
 }
 

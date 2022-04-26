@@ -54,7 +54,7 @@ const searchParamReducer = (
             });
         }
         default: {
-            return produce(state, (draft) => {});
+            return produce(state, (_draft) => { });
         }
     }
 };

@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import DialogComponent from "../../common/dialog/DialogComponent";
 import KeywordSettingContainer from "../../container/keyword/KeywordContainer";
-import AppBarComponent from "./AppBarComponent";
+import HeaderComponent from "./HeaderComponent";
 import NotificationSettingContainer from "../../container/setting/NotificationSettingContainer";
 import SearchSettingContainer from "../../container/setting/SearchSettingContainer";
 import { localStorageApi } from "../../utils/dataUtils/localStorageApi";
 import { saveStorageType } from "../../@types/data-type";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules";
+import { useCallback } from "react";
 
-const MenuBarComponent = () => {
+const headerStyle = {
+    height: "8vh",
+};
+
+const Header = () => {
     const [keywordOpen, setKeywordOpen] = useState<boolean>(false);
     const [alertSettingOpen, setAlertSettingOpen] = useState<boolean>(false);
     const [searchSettingOpen, setSearchSettingOpen] = useState<boolean>(false);
@@ -21,40 +26,46 @@ const MenuBarComponent = () => {
         (state: RootState) => state.searchParamReducer
     );
 
-    const onClickSetKeyword = () => {
+    const onClickSetKeyword = useCallback(() => {
         setKeywordOpen(true);
-    };
+    }, []);
 
-    const onClickSetAlertSetting = () => {
+    const onClickSetAlertSetting = useCallback(() => {
         setAlertSettingOpen(true);
-    };
+    }, []);
 
-    const onClickSetSearchSetting = () => {
+    const onClickSetSearchSetting = useCallback(() => {
         setSearchSettingOpen(true);
-    };
+    }, []);
 
-    const onClickConfirm = (key: saveStorageType) => {
-        const result = window.confirm("정보를 저장하시겠습니까?");
-        if (!result) return result;
+    const getValueItem = useCallback(
+        (key: saveStorageType) => {
+            switch (key) {
+                case "keyword":
+                    return keywordItems;
+                case "notification":
+                    return "";
+                case "searchParams":
+                    return searchParam;
+            }
+        },
+        [keywordItems, searchParam]
+    );
 
-        localStorageApi.save(key, getValueItem(key));
-        return result;
-    };
+    const onClickConfirm = useCallback(
+        (key: saveStorageType) => {
+            const result = window.confirm("정보를 저장하시겠습니까?");
+            if (!result) return result;
 
-    const getValueItem = (key: saveStorageType) => {
-        switch (key) {
-            case "keyword":
-                return keywordItems;
-            case "notification":
-                return "";
-            case "searchParams":
-                return searchParam;
-        }
-    };
+            localStorageApi.save(key, getValueItem(key));
+            return result;
+        },
+        [getValueItem]
+    );
 
     return (
-        <div style={{ height: "8vh" }}>
-            <AppBarComponent
+        <header style={headerStyle}>
+            <HeaderComponent
                 onClickSetKeyword={onClickSetKeyword}
                 onClickSetAlertSetting={onClickSetAlertSetting}
                 onClickSetSearchSetting={onClickSetSearchSetting}
@@ -73,7 +84,6 @@ const MenuBarComponent = () => {
                 title={"알림 설정"}
                 contentAlign={"left"}
                 size={"xs"}
-                //contentHeight="200px"
                 open={alertSettingOpen}
                 children={<NotificationSettingContainer />}
                 onClickConfirm={() =>
@@ -85,7 +95,6 @@ const MenuBarComponent = () => {
                 title={"검색설정"}
                 contentAlign={"left"}
                 size={"xs"}
-                //contentHeight="200px"
                 open={searchSettingOpen}
                 children={<SearchSettingContainer />}
                 onClickConfirm={() =>
@@ -94,8 +103,8 @@ const MenuBarComponent = () => {
                 }
                 onClose={() => setSearchSettingOpen(false)}
             />
-        </div>
+        </header>
     );
 };
 
-export default MenuBarComponent;
+export default React.memo(Header);

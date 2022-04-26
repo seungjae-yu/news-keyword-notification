@@ -1,5 +1,4 @@
 import { Card, CardContent, Typography, Link } from "@material-ui/core";
-import React from "react";
 import { ArticleData } from "../../@types/news-data-type";
 import { StringApis } from "../../utils/dataUtils/stringApi";
 

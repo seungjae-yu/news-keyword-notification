@@ -5,4 +5,4 @@ const NotificationSettingContainer = () => {
     return <NotificationSetting />;
 };
 
-export default NotificationSettingContainer;
+export default React.memo(NotificationSettingContainer);
